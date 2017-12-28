@@ -5,7 +5,7 @@
 <web-app>
     <display-name>Trump Reader</display-name>
     <description>
-        This is a simple web application with a articles and tweets
+        This is a simple web application with articles and tweets
         referencing Donal Trump.
     </description>
 
