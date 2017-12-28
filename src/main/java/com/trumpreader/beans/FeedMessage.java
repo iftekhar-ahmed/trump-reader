@@ -46,9 +46,8 @@ public class FeedMessage {
     public boolean hasKeywords(@NotNull String[] phrases) {
         if (phrases.length > 0) {
             for (String phrase : phrases) {
-                phrase = Pattern.quote(phrase);
-                if (Pattern.compile(phrase, Pattern.CASE_INSENSITIVE).matcher(title).find()
-                        || Pattern.compile(phrase, Pattern.CASE_INSENSITIVE).matcher(description).find())
+                Pattern pattern = Pattern.compile(Pattern.quote(phrase), Pattern.CASE_INSENSITIVE);
+                if (pattern.matcher(title).find() || pattern.matcher(description).find())
                     return true;
             }
         }

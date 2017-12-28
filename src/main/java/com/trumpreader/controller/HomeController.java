@@ -1,27 +1,22 @@
-package com.trumpreader.service;
+package com.trumpreader.controller;
 
 import com.trumpreader.beans.FeedMessage;
-import org.springframework.scheduling.annotation.Scheduled;
+import com.trumpreader.service.RssFeedPullParser;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.net.MalformedURLException;
 import java.util.List;
 
-public class ArticleCrawlerService {
-
-    private final String RSS_URL_TOP = "http://rss.cnn.com/rss/edition.rss";
+@Controller
+public class HomeController {
     private final String RSS_URL_LATEST = "http://rss.cnn.com/rss/cnn_latest.rss";
 
-    // private RestTemplate restTemplate;
-
-    @Scheduled(fixedRate = 3600000)
-    void print() {
-        // System.out.println("Now time is " + new Date());
-        /*if (restTemplate == null) {
-            restTemplate = new RestTemplate();
-            String response = restTemplate.getForObject(RSS_URL_TOP, String.class);
-            System.out.println(response);
-        }*/
-        /*try {
+    @RequestMapping(name = "/", method = RequestMethod.GET)
+    public String getArticles(Model map) {
+        try {
             RssFeedPullParser parser = new RssFeedPullParser(RSS_URL_LATEST);
             List<FeedMessage> feedMessages = parser.readFeed();
             String[] phrases = {"Donald", "Trump"};
@@ -29,8 +24,10 @@ public class ArticleCrawlerService {
                 if (feedMessage.hasKeywords(phrases))
                     System.out.println(feedMessage);
             }
+            map.addAttribute("result", feedMessages);
         } catch (MalformedURLException e) {
             e.printStackTrace();
-        }*/
+        }
+        return "home";
     }
 }

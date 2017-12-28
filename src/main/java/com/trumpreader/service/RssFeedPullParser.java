@@ -24,7 +24,7 @@ public class RssFeedPullParser {
 
     private final URL url;
 
-    RssFeedPullParser(String feedUrl) throws MalformedURLException {
+    public RssFeedPullParser(String feedUrl) throws MalformedURLException {
         url = new URL(feedUrl);
     }
 
@@ -87,8 +87,7 @@ public class RssFeedPullParser {
         return feedMessages;
     }
 
-    private String getCharacterData(XMLEventReader eventReader)
-            throws XMLStreamException {
+    private String getCharacterData(XMLEventReader eventReader) throws XMLStreamException {
         String result = "";
         XMLEvent event = eventReader.nextEvent();
         if (event instanceof Characters) {
