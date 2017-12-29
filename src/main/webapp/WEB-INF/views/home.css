@@ -1,0 +1,24 @@
+/*body {
+            background-image: url('https://goo.gl/dpJ3Sd');
+        }*/
+#container {
+    height: 100%;
+    width: 100%;
+    font-size: 0;
+}
+
+#articles, #tweets {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    vertical-align: top;
+    font-size: 14px;
+}
+
+#articles {
+    width: 50%
+}
+
+#tweets {
+    width: 50%
+}

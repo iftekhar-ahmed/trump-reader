@@ -1,4 +1,4 @@
-package com.trumpreader.service;
+package com.trumpreader;
 
 import com.trumpreader.beans.FeedMessage;
 
@@ -48,14 +48,6 @@ public class RssFeedPullParser {
                 if (event.isStartElement()) {
                     String localPart = event.asStartElement().getName().getLocalPart();
                     switch (localPart) {
-                        /*case ITEM:
-                            if (isFeedHeader) {
-                                isFeedHeader = false;
-                                feed = new Feed(title, link, description, language,
-                                        copyright, pubdate);
-                            }
-                            event = eventReader.nextEvent();
-                            break;*/
                         case TITLE:
                             title = getCharacterData(eventReader);
                             break;

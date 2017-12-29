@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: BS-118
+  User: Iftekhar Ahmed
   Date: 12/28/17
   Time: 5:46 PM
   To change this template use File | Settings | File Templates.
@@ -11,18 +11,25 @@
 <%@ page isELIgnored="false" %>
 <html>
 <head>
-    <%--<style type="text/css">
-        body {
-            background-image: url('https://goo.gl/dpJ3Sd');
-        }
-    </style>--%>
+    <link rel="stylesheet" href="home.css">
     <title>Articles From CNN</title>
 </head>
 <body>
-<ul>
-    <c:forEach items="${result}" var="feedMessage">
-        <li><a href="${feedMessage.link}">${feedMessage.title}</a></li>
-    </c:forEach>
-</ul>
+<div id="container">
+    <div id="articles">
+        <ul>
+            <c:forEach items="${feeds}" var="feedMessage">
+                <li><a href="${feedMessage.link}" target="_blank">${feedMessage.title}</a></li>
+            </c:forEach>
+        </ul>
+    </div>
+    <div id="tweets">
+        <ul>
+            <c:forEach items="${tweets}" var="status">
+                <li>@${status.user.screenName} - ${status.text}</li>
+            </c:forEach>
+        </ul>
+    </div>
+</div>
 </body>
 </html>
