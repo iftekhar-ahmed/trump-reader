@@ -12,7 +12,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="home.css">
-    <title>Articles From CNN</title>
+    <title>TrumpReader</title>
 </head>
 <body>
 <div id="container">
