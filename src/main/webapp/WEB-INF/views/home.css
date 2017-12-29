@@ -31,3 +31,12 @@ blockquote:before {
     margin-right: .25em;
     vertical-align: -.4em;
 }
+
+#quotes {
+    margin-top: 50px;
+    margin-bottom: 30px;
+    padding-left: 30px;
+}
+.ols li{
+    height: 45px;
+}

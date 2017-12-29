@@ -13,21 +13,46 @@
 <%@ page isELIgnored="false" %>
 <html>
 <head>
-    <link rel="stylesheet" href="home.css">
+    <style>
+        <%@ include file="home.css" %>
+    </style>
     <title>TrumpReader</title>
 </head>
 <body>
 <div id="container">
+    <div id="quotes">
+        <h3 style="margin-left:30px;">Get a random quote about Donald Trump</h3>
+        <form:form method="post">
+            <table>
+                <tr>
+                    <td><label>What's on your mind?</label></td>
+                    <td><input placeholder="At least 3 characters..." name="text" type="text"/></td>
+                    <td>
+                        <blockquote style="background: azure">
+                            <c:if test="${not empty quote.value}">
+                                ${quote.value}
+                            </c:if>
+                        </blockquote>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="Enter"/></td>
+                </tr>
+            </table>
+        </form:form>
+    </div>
     <div id="articles">
-        <ol>
+        <h3 style="margin-left:30px;">Articles from CNN</h3>
+        <ol class="ols">
             <c:forEach items="${feeds}" var="feedMessage">
-                <li style="height: 20px;"><a href="${feedMessage.link}" target="_blank">${feedMessage.title}</a></li>
+                <li><a href="${feedMessage.link}" target="_blank">${feedMessage.title}</a></li>
             </c:forEach>
         </ol>
     </div>
     <div id="tweets">
-        <h5>@${handle}</h5>
-        <ol>
+        <h3>@${handle}</h3>
+        <ol class="ols">
             <c:forEach items="${tweets}" var="status">
                 <c:set var="urlMeta" scope="page"
                        value="${fn:split(fn:replace(status.text,\"https://\",'|'), '|')[1]}"/>
@@ -43,23 +68,7 @@
             </c:forEach>
         </ol>
     </div>
-    <div id="quotes">
-        <form:form method="post" action="quotes">
-            <table>
-                <tr>
-                    <td><label>What's on your mind?</label></td>
-                    <td><input name="text" type="text"/></td>
-                    <td>
-                        <blockquote>${quote.value}</blockquote>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input type="submit" value="Enter"/></td>
-                </tr>
-            </table>
-        </form:form>
-    </div>
+
 </div>
 </body>
 </html>
