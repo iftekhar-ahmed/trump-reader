@@ -6,15 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import twitter4j.Status;
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
+import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
 import java.net.MalformedURLException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class HomeController {
@@ -31,14 +28,10 @@ public class HomeController {
         try {
             RssFeedPullParser parser = new RssFeedPullParser(RSS_URL_LATEST);
             List<FeedMessage> feedMessages = parser.readFeed();
-            String[] phrases = {"Donald", "Trump"};
-            List<FeedMessage> trumpInFeed = new ArrayList<>();
-            for (FeedMessage feedMessage : feedMessages) {
-                if (feedMessage.hasKeywords(phrases)) {
-                    trumpInFeed.add(feedMessage);
-                }
-            }
-            map.addAttribute("feeds", trumpInFeed);
+            final String[] phrases = {"Donald", "Trump"};
+            List<FeedMessage> trumpFeeds
+                    = feedMessages.stream().filter(p -> p.hasKeywords(phrases)).limit(25).collect(Collectors.toList());
+            map.addAttribute("feeds", trumpFeeds);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -52,7 +45,8 @@ public class HomeController {
         TwitterFactory tf = new TwitterFactory(cb.build());
         Twitter twitter = tf.getInstance();
         try {
-            List<Status> tweets = twitter.getUserTimeline(TWITTER_HANDLE_TRUMP);
+            List<Status> tweets = twitter.getUserTimeline(TWITTER_HANDLE_TRUMP, new Paging(1, 25));
+            map.addAttribute("handle", TWITTER_HANDLE_TRUMP);
             map.addAttribute("tweets", tweets);
         } catch (TwitterException te) {
             te.printStackTrace();

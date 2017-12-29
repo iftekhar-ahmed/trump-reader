@@ -8,6 +8,7 @@
 <%@ page contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page isELIgnored="false" %>
 <html>
 <head>
@@ -17,18 +18,29 @@
 <body>
 <div id="container">
     <div id="articles">
-        <ul>
+        <ol>
             <c:forEach items="${feeds}" var="feedMessage">
-                <li><a href="${feedMessage.link}" target="_blank">${feedMessage.title}</a></li>
+                <li style="height: 20px;"><a href="${feedMessage.link}" target="_blank">${feedMessage.title}</a></li>
             </c:forEach>
-        </ul>
+        </ol>
     </div>
     <div id="tweets">
-        <ul>
+        <h5>@${handle}</h5>
+        <ol>
             <c:forEach items="${tweets}" var="status">
-                <li>@${status.user.screenName} - ${status.text}</li>
+                <c:set var="urlMeta" scope="page"
+                       value="${fn:split(fn:replace(status.text,\"https://\",'|'), '|')[1]}"/>
+                <c:choose>
+                    <c:when test="${urlMeta != null}">
+                        <c:set var="url" value="https://${urlMeta}"/>
+                        <li>${status.text.replace(url, "")} - <a href="${url}">${url}</a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li>${status.text}</li>
+                    </c:otherwise>
+                </c:choose>
             </c:forEach>
-        </ul>
+        </ol>
     </div>
 </div>
 </body>
