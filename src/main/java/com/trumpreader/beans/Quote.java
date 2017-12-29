@@ -23,7 +23,7 @@ public class Quote {
         this._embedded = _embedded;
     }
 
-    class Embedded {
+    public class Embedded {
         private List<Source> source;
 
         public List<Source> getSource() {
@@ -35,7 +35,7 @@ public class Quote {
         }
     }
 
-    class Source {
+    public class Source {
         private String url;
 
         public String getUrl() {

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.ModelAndView;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
@@ -80,6 +79,12 @@ public class HomeController {
         return "home";
     }
 
+    /**
+     * Gets a list of quotes from https://www.tronalddump.io
+     *
+     * @param query text to search against quote
+     * @return {@link Quote} object, null if query is empty or no quotes are found
+     */
     private Quote getTrumpQuote(QuoteQuery query) {
         String queryText = query.getText();
         if (queryText == null || queryText.isEmpty()) return null;

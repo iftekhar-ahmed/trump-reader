@@ -19,15 +19,16 @@
     <title>TrumpReader</title>
 </head>
 <body>
+<h3 style="margin-left:30px;">Get a random quote about Donald Trump</h3>
 <div id="container">
     <div id="quotes">
-        <h3 style="margin-left:30px;">Get a random quote about Donald Trump</h3>
         <form:form method="post">
             <table>
                 <tr>
-                    <td><label>What's on your mind?</label></td>
-                    <td><input placeholder="At least 3 characters..." name="text" type="text"/></td>
-                    <td>
+                    <td style="width:15%"><label>What's on your mind?</label></td>
+                    <td style="width:15%;text-align: center"><input placeholder="At least 3 characters..." name="text"
+                                                                    type="text"/></td>
+                    <td style="width:70%">
                         <blockquote style="background: azure">
                             <c:if test="${not empty quote.value}">
                                 ${quote.value}
@@ -36,8 +37,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td><input type="submit" value="Enter"/></td>
+                    <td style="width:15%"></td>
+                    <td style="width:15%;text-align: center"><input type="submit" value="Enter"/></td>
+                    <td style="width:70%;padding-left:40px;">
+                        <c:if test="${not empty quote._embedded.source}">
+                            <c:set var="sourceUrl" value="${quote._embedded.source.get(0).url}"/>
+                            Source: <a href="${sourceUrl}" target="_blank">${sourceUrl}</a>
+                        </c:if>
+                    </td>
                 </tr>
             </table>
         </form:form>
@@ -59,7 +66,7 @@
                 <c:choose>
                     <c:when test="${urlMeta != null}">
                         <c:set var="url" value="https://${urlMeta}"/>
-                        <li>${status.text.replace(url, "")} - <a href="${url}">${url}</a></li>
+                        <li>${status.text.replace(url, "")} - <a href="${url}" target="_blank">${url}</a></li>
                     </c:when>
                     <c:otherwise>
                         <li>${status.text}</li>
